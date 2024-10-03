@@ -9,145 +9,55 @@
     <link rel="stylesheet" href="122.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <style>
-        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: "Poppins", sans-serif;
-        }
-
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background: url("img.jpg") no-repeat;
-            background-size: cover;
-            background-position: center;
-        }
-
-        .wrapper {
-            width: 420px;
-            padding: 30px;
-            background: transparent;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(20px);
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            color: #fff;
+        /* CSS for the registration form */
+        .registration-form {
+            display: none;
+            /* Hide the registration form initially */
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
             border-radius: 10px;
-            padding: 30px 40px;
+            color: #fff;
         }
 
-        .wrapper h1 {
-            font-size: 36px;
+        .registration-form h2 {
             text-align: center;
         }
 
-        .input-box {
-            position: relative;
-            margin-bottom: 30px;
+        .registration-form .input-box {
+            margin-bottom: 20px;
         }
 
-        .wrapper .input-box input {
-            position: relative;
+        .registration-form input,
+        .registration-form textarea {
             width: 100%;
             height: 50px;
-            margin: 30px 0;
-        }
-
-        .input-box input {
-            width: 100%;
-            height: 100%;
             background: transparent;
-            border: none;
-            outline: none;
             border: 2px solid rgba(255, 255, 255, 0.2);
             border-radius: 40px;
+            color: #fff;
+            padding: 10px 20px;
             font-size: 16px;
-            color: #fff;
-            padding: 20px 20px;
         }
 
-        .input-box input::placeholder {
-            color: #fff;
-            text-align: left;
-            font-size: 14px;
+        .registration-form textarea {
+            height: 100px;
+            /* Height for the application textarea */
         }
 
-        .input-box i {
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 20px;
-        }
-
-        .remember-forgot {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 14.5px;
-            margin: -15px 0 15px;
-        }
-
-        .remember-forgot label input {
-            accent-color: #fff;
-            margin-right: 3px;
-        }
-
-        .remember-forgot a {
-            color: #fff;
-            text-decoration: none;
-        }
-
-        .remember-forgot a:hover {
-            text-decoration: underline;
-        }
-
-        .btn {
+        .registration-form button {
             width: 100%;
             height: 45px;
-            padding: 10px 15px;
             background: #fff;
             border: none;
-            outline: none;
             border-radius: 40px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
             color: #333;
             font-weight: 600;
             transition: 0.3s;
         }
 
-        .btn:hover {
+        .registration-form button:hover {
             background: darkgreen;
-        }
-
-        .register-link {
-            margin: 20px 0 15px;
-            font-size: 14.5px;
-            text-align: center;
-        }
-
-        .register-link a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .register-link a:hover {
-            text-decoration: underline;
-        }
-
-        .commands-container {
-            margin-top: 20px;
-            padding: 10px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            color: #fff;
         }
     </style>
 </head>
@@ -171,35 +81,101 @@
             <button type="button" class="btn" onclick="login()">Login</button>
         </form>
         <div class="register-link">
-            <p>Don't have an account? <a href="#">Register</a></p>
+            <p>Don't have an account? <a href="#" onclick="toggleRegistrationForm()">Register</a></p>
         </div>
         <div class="commands-container" id="commandsContainer"></div>
+
+        <!-- New Registration Form -->
+        <div class="registration-form" id="registrationForm">
+            <h2>Register</h2>
+            <div class="input-box">
+                <input type="text" id="name" placeholder="Name" required>
+            </div>
+            <div class="input-box">
+                <input type="text" id="surname" placeholder="Surname" required>
+            </div>
+            <div class="input-box">
+                <input type="text" id="phone" placeholder="Phone Number" required>
+            </div>
+            <div class="input-box">
+                <input type="email" id="email" placeholder="Email" required>
+            </div>
+            <div class="input-box">
+                <textarea id="application" placeholder="Application" required></textarea>
+            </div>
+            <button type="button" class="btn" onclick="submitRegistration()">Submit</button>
+        </div>
     </div>
 
+    <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
     <script>
+        // Initialize EmailJS
+        (function () {
+            emailjs.init("8ctINp-seMzcv49Re"); // Replace with your actual user ID from EmailJS
+        })();
+
         function login() {
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
-            const rememberMe = document.querySelector('input[type="checkbox"]').checked;
 
-            // Perform validation if needed
-
-            // Simulate login process (replace with actual logic)
             if (username === 'Babak' && password === '1234') {
-                // Store username in sessionStorage
                 sessionStorage.setItem('username', username);
-
-                // Open GitHub profile in new tab
-                window.open('https://github.com/bgasimzade99', '_blank');
-
-                // Optionally, redirect to another page
-                // window.location.href = 'profile.html';
+                window.open('file:///C:/Users/USER/Desktop/Portfolio%20Web/indexx.html', '_blank');
             } else {
-                // Display error message or handle invalid login
                 alert('Invalid username or password');
             }
         }
+
+        function toggleRegistrationForm() {
+            const registrationForm = document.getElementById('registrationForm');
+            registrationForm.style.display = registrationForm.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function submitRegistration() {
+            console.log("Submit button clicked!");  // Debugging statement
+
+            const name = document.getElementById('name').value;
+            const surname = document.getElementById('surname').value;
+            const phone = document.getElementById('phone').value;
+            const email = document.getElementById('email').value;
+            const application = document.getElementById('application').value;
+
+            if (name && surname && phone && email && application) {
+                const templateParams = {
+                    name: name,
+                    surname: surname,
+                    phone: phone,
+                    email: email,
+                    application: application
+                };
+
+                console.log("Template Params: ", templateParams);  // Log template params for debugging
+
+                emailjs.send('service_v2glusc', 'template_bwjlrhr', templateParams)
+                    .then(function (response) {
+                        alert('Registration successful! Your data has been sent.');
+                        console.log('SUCCESS!', response.status, response.text);  // Log success response
+                        document.getElementById('registrationForm').reset();  // Clear form fields
+                        toggleRegistrationForm();  // Hide registration form after submission
+                    }, function (error) {
+                        alert('Failed to send registration. Please try again later.');
+                        console.error('Failed to send registration:', error);  // Log error for debugging
+                    });
+            } else {
+                alert('Please fill out all fields.');
+            }
+        }
     </script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+    </script>
+    <script type="text/javascript">
+        (function () {
+            emailjs.init({
+                publicKey: "8ctINp-seMzcv49Re",
+            });
+        })();
+    </script>
+
 </body>
 
 </html>
